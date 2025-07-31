@@ -20,7 +20,7 @@
       "holdingTimeHours": null
     },
     "C4k1gxs9NnPhSWUbtEpnptYiduy2ZWX237gGD22N8QeC": {
-      "id": "inv_1753946908052_v5pl2u6p3",
+      "id": "inv_1753947328766_2nkvt0xpg",
       "poolId": "C4k1gxs9NnPhSWUbtEpnptYiduy2ZWX237gGD22N8QeC",
       "poolName": "SOL/SRM",
       "protocol": "Orca",
@@ -29,7 +29,7 @@
       "entryLiquidity": 1000,
       "entryVolume24h": 100,
       "investmentAmount": 1000,
-      "entryTimestamp": "2025-07-31T07:28:28.052Z",
+      "entryTimestamp": "2025-07-31T07:35:28.766Z",
       "status": "active",
       "exitTimestamp": null,
       "exitApy": null,
@@ -39,7 +39,7 @@
       "holdingTimeHours": null
     },
     "7N2AEJ98qBs4PwEwZ6k5pj8uZBKMkZrKZeiC7A64B47u": {
-      "id": "inv_1753946924763_gtauandlg",
+      "id": "inv_1753955313790_ubn9ac578",
       "poolId": "7N2AEJ98qBs4PwEwZ6k5pj8uZBKMkZrKZeiC7A64B47u",
       "poolName": "BTC/SOL[aquafarm]",
       "protocol": "Orca",
@@ -48,7 +48,26 @@
       "entryLiquidity": 12158.11279005695,
       "entryVolume24h": 5270.892499364644,
       "investmentAmount": 1000,
-      "entryTimestamp": "2025-07-31T07:28:44.763Z",
+      "entryTimestamp": "2025-07-31T09:48:33.790Z",
+      "status": "active",
+      "exitTimestamp": null,
+      "exitApy": null,
+      "exitPrice": null,
+      "profitLoss": null,
+      "profitLossPercentage": null,
+      "holdingTimeHours": null
+    },
+    "CdKPtCb5fBRaGFS4bJgytfReeHuFyhpe9YUyWHPnEWZG": {
+      "id": "inv_1753947182139_6051c5waj",
+      "poolId": "CdKPtCb5fBRaGFS4bJgytfReeHuFyhpe9YUyWHPnEWZG",
+      "poolName": "POLIS/USDC[aquafarm]",
+      "protocol": "Orca",
+      "entryApy": 0.31679703534345754,
+      "entryPrice": 1,
+      "entryLiquidity": 73439.48903194845,
+      "entryVolume24h": 14440.940434429578,
+      "investmentAmount": 1000,
+      "entryTimestamp": "2025-07-31T07:33:02.139Z",
       "status": "active",
       "exitTimestamp": null,
       "exitApy": null,
@@ -67,5 +86,5 @@
     "totalLoss": 0,
     "averageHoldingTime": 0
   },
-  "lastUpdated": "2025-07-31T07:28:44.764Z"
+  "lastUpdated": "2025-07-31T09:48:33.791Z"
 }

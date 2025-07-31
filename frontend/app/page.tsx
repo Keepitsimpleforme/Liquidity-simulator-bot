@@ -102,7 +102,7 @@ export default function Dashboard() {
   }, [pools, searchTerm, selectedChain, minApy, sortBy])
 
   // Get unique chains
-  const chains = ["all", ...Array.from(new Set(pools.map((pool) => pool.chain)))]
+  const chains = ["all", ...Array.from(new Set(pools.map((pool) => pool.chain || "Unknown").filter(Boolean)))]
 
   // Pagination
   const indexOfLastPool = currentPage * poolsPerPage
@@ -134,6 +134,13 @@ export default function Dashboard() {
 
   const simulateInvestment = async (pool: Pool) => {
     try {
+      // Check if pool meets APY threshold before sending to backend
+      const maxApy = Math.max(pool.apy_24h, pool.apy_7d, pool.apy_30d)
+      if (maxApy < 0.3) {
+        alert(`❌ Investment failed: Pool APY (${(maxApy * 100).toFixed(2)}%) is below the 30% threshold required for investment.`)
+        return
+      }
+
       setInvestingPools(prev => new Set(prev).add(pool.id))
       
       const response = await fetch("http://localhost:3001/api/bot/investments/simulate", {
@@ -309,8 +316,8 @@ export default function Dashboard() {
                   <SelectValue placeholder="Select chain" />
                 </SelectTrigger>
                 <SelectContent>
-                  {chains.map((chain) => (
-                    <SelectItem key={chain} value={chain}>
+                  {chains.map((chain, index) => (
+                    <SelectItem key={`chain-${index}-${chain}`} value={chain}>
                       {chain === "all" ? "All Chains" : chain}
                     </SelectItem>
                   ))}
@@ -323,11 +330,11 @@ export default function Dashboard() {
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="apy_24h">APY 24h</SelectItem>
-                  <SelectItem value="apy_7d">APY 7d</SelectItem>
-                  <SelectItem value="apy_30d">APY 30d</SelectItem>
-                  <SelectItem value="liquidity">Liquidity</SelectItem>
-                  <SelectItem value="volume_24h">Volume 24h</SelectItem>
+                  <SelectItem key="apy_24h" value="apy_24h">APY 24h</SelectItem>
+                  <SelectItem key="apy_7d" value="apy_7d">APY 7d</SelectItem>
+                  <SelectItem key="apy_30d" value="apy_30d">APY 30d</SelectItem>
+                  <SelectItem key="liquidity" value="liquidity">Liquidity</SelectItem>
+                  <SelectItem key="volume_24h" value="volume_24h">Volume 24h</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -403,9 +410,10 @@ export default function Dashboard() {
                       className="w-full bg-transparent" 
                       variant="outline"
                       onClick={() => simulateInvestment(pool)}
-                      disabled={investingPools.has(pool.id)}
+                      disabled={investingPools.has(pool.id) || Math.max(pool.apy_24h, pool.apy_7d, pool.apy_30d) < 0.3}
                     >
-                      {investingPools.has(pool.id) ? "Investing..." : "Simulate Investment"}
+                      {investingPools.has(pool.id) ? "Investing..." : 
+                       Math.max(pool.apy_24h, pool.apy_7d, pool.apy_30d) < 0.3 ? "APY < 30%" : "Simulate Investment"}
                     </Button>
                   </CardContent>
                 </Card>
