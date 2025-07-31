@@ -1,0 +1,71 @@
+{
+  "activeInvestments": {
+    "vjHagYsgZwG9icyFLHu2xWHWdtiS5gfeNzRhDcPt5xq": {
+      "id": "inv_1753946154744_1qr6sajfr",
+      "poolId": "vjHagYsgZwG9icyFLHu2xWHWdtiS5gfeNzRhDcPt5xq",
+      "poolName": "MNDE/mSOL[aquafarm]",
+      "protocol": "Orca",
+      "entryApy": 0.3196422037053764,
+      "entryPrice": 0.003050330943990109,
+      "entryLiquidity": 32262.437124367683,
+      "entryVolume24h": 1420.0420941992804,
+      "investmentAmount": 1000,
+      "entryTimestamp": "2025-07-31T07:15:54.744Z",
+      "status": "active",
+      "exitTimestamp": null,
+      "exitApy": null,
+      "exitPrice": null,
+      "profitLoss": null,
+      "profitLossPercentage": null,
+      "holdingTimeHours": null
+    },
+    "C4k1gxs9NnPhSWUbtEpnptYiduy2ZWX237gGD22N8QeC": {
+      "id": "inv_1753946908052_v5pl2u6p3",
+      "poolId": "C4k1gxs9NnPhSWUbtEpnptYiduy2ZWX237gGD22N8QeC",
+      "poolName": "SOL/SRM",
+      "protocol": "Orca",
+      "entryApy": 0.30311971585463027,
+      "entryPrice": 1,
+      "entryLiquidity": 1000,
+      "entryVolume24h": 100,
+      "investmentAmount": 1000,
+      "entryTimestamp": "2025-07-31T07:28:28.052Z",
+      "status": "active",
+      "exitTimestamp": null,
+      "exitApy": null,
+      "exitPrice": null,
+      "profitLoss": null,
+      "profitLossPercentage": null,
+      "holdingTimeHours": null
+    },
+    "7N2AEJ98qBs4PwEwZ6k5pj8uZBKMkZrKZeiC7A64B47u": {
+      "id": "inv_1753946924763_gtauandlg",
+      "poolId": "7N2AEJ98qBs4PwEwZ6k5pj8uZBKMkZrKZeiC7A64B47u",
+      "poolName": "BTC/SOL[aquafarm]",
+      "protocol": "Orca",
+      "entryApy": 0.522659006262125,
+      "entryPrice": 1,
+      "entryLiquidity": 12158.11279005695,
+      "entryVolume24h": 5270.892499364644,
+      "investmentAmount": 1000,
+      "entryTimestamp": "2025-07-31T07:28:44.763Z",
+      "status": "active",
+      "exitTimestamp": null,
+      "exitApy": null,
+      "exitPrice": null,
+      "profitLoss": null,
+      "profitLossPercentage": null,
+      "holdingTimeHours": null
+    }
+  },
+  "investmentHistory": [],
+  "stats": {
+    "totalInvestments": 0,
+    "successfulExits": 0,
+    "failedExits": 0,
+    "totalProfit": 0,
+    "totalLoss": 0,
+    "averageHoldingTime": 0
+  },
+  "lastUpdated": "2025-07-31T07:28:44.764Z"
+}

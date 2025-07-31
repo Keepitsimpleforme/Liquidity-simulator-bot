@@ -33,6 +33,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [darkMode, setDarkMode] = useState(false)
+  const [investingPools, setInvestingPools] = useState<Set<string>>(new Set())
 
   // Filter states
   const [searchTerm, setSearchTerm] = useState("")
@@ -131,6 +132,54 @@ export default function Dashboard() {
     document.documentElement.classList.toggle("dark")
   }
 
+  const simulateInvestment = async (pool: Pool) => {
+    try {
+      setInvestingPools(prev => new Set(prev).add(pool.id))
+      
+      const response = await fetch("http://localhost:3001/api/bot/investments/simulate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          poolId: pool.id,
+          poolName: pool.name,
+          protocol: pool.protocol,
+          apy: Math.max(pool.apy_24h, pool.apy_7d, pool.apy_30d),
+          price: 1, // Default price
+          liquidity: pool.liquidity,
+          volume_24h: pool.volume_24h
+        }),
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || "Failed to simulate investment")
+      }
+
+      const result = await response.json()
+      
+      if (result.success) {
+        // Show success message
+        alert(`✅ Investment simulated successfully!\nPool: ${pool.name}\nAmount: $1,000\nAPY: ${(Math.max(pool.apy_24h, pool.apy_7d, pool.apy_30d) * 100).toFixed(2)}%`)
+        
+        // Optionally redirect to bot dashboard
+        if (confirm("View your investment in the Bot Dashboard?")) {
+          window.location.href = "/bot"
+        }
+      }
+    } catch (error) {
+      console.error("Investment simulation failed:", error)
+      alert(`❌ Investment failed: ${error instanceof Error ? error.message : "Unknown error"}`)
+    } finally {
+      setInvestingPools(prev => {
+        const newSet = new Set(prev)
+        newSet.delete(pool.id)
+        return newSet
+      })
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -208,6 +257,13 @@ export default function Dashboard() {
                 <DollarSign className="h-5 w-5" />
                 <span>Portfolio</span>
               </a>
+              <a
+                href="/bot"
+                className="flex items-center space-x-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+              >
+                <Activity className="h-5 w-5" />
+                <span>Bot Dashboard</span>
+              </a>
             </nav>
           </div>
         </div>
@@ -218,9 +274,18 @@ export default function Dashboard() {
           <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
             <div className="px-8 py-4 flex items-center justify-between">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">DeFi Pool Dashboard</h2>
-              <Button variant="outline" size="icon" onClick={toggleDarkMode} className="ml-auto bg-transparent">
-                {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </Button>
+              <div className="flex items-center space-x-4">
+                <Button 
+                  onClick={() => window.location.href = '/bot'} 
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                >
+                  <Activity className="h-4 w-4 mr-2" />
+                  Bot Dashboard
+                </Button>
+                <Button variant="outline" size="icon" onClick={toggleDarkMode} className="bg-transparent">
+                  {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                </Button>
+              </div>
             </div>
           </header>
 
@@ -334,8 +399,13 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    <Button className="w-full bg-transparent" variant="outline">
-                      Simulate Investment
+                    <Button 
+                      className="w-full bg-transparent" 
+                      variant="outline"
+                      onClick={() => simulateInvestment(pool)}
+                      disabled={investingPools.has(pool.id)}
+                    >
+                      {investingPools.has(pool.id) ? "Investing..." : "Simulate Investment"}
                     </Button>
                   </CardContent>
                 </Card>
